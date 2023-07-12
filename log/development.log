@@ -1,0 +1,636 @@
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateNotes (20230712135301)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "notes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "status" ENUM('todo', 'inprogess', 'done') DEFAULT 'todo', "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateNotes (20230712135301)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "notes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "status" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230712135301"]]
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-12 14:05:50.555862"], ["updated_at", "2023-07-12 14:05:50.555862"]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-07-12 17:06:08 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/sondos/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/sondos/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 3.4ms | Allocations: 633)
+Completed 200 OK in 38ms (Views: 14.8ms | ActiveRecord: 0.0ms | Allocations: 7374)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:06:13 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1358)
+  Rendered layout layouts/application.html.erb (Duration: 248.5ms | Allocations: 87245)
+Completed 200 OK in 266ms (Views: 249.4ms | ActiveRecord: 0.3ms | Allocations: 89876)
+
+
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:06:16 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 9.8ms | Allocations: 2935)
+  Rendered notes/new.html.erb within layouts/application (Duration: 11.3ms | Allocations: 3260)
+  Rendered layout layouts/application.html.erb (Duration: 13.6ms | Allocations: 5366)
+Completed 200 OK in 23ms (Views: 14.7ms | ActiveRecord: 0.5ms | Allocations: 9475)
+
+
+Started POST "/notes" for 127.0.0.1 at 2023-07-12 17:06:37 +0300
+Processing by NotesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"0"}, "commit"=>"Create Note"}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 985)
+
+
+  
+ArgumentError ('0' is not a valid status):
+  
+app/controllers/notes_controller.rb:24:in `create'
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:06:44 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 823)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 2962)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.1ms | Allocations: 3242)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:06:44 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 3.0ms | Allocations: 820)
+  Rendered layout layouts/application.html.erb (Duration: 5.3ms | Allocations: 2925)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.1ms | Allocations: 3193)
+
+
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:07:34 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 2.2ms | Allocations: 1137)
+  Rendered notes/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1241)
+  Rendered layout layouts/application.html.erb (Duration: 13.6ms | Allocations: 14015)
+Completed 200 OK in 22ms (Views: 15.1ms | ActiveRecord: 0.9ms | Allocations: 17223)
+
+
+Started POST "/notes" for 127.0.0.1 at 2023-07-12 17:07:42 +0300
+Processing by NotesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"0"}, "commit"=>"Create Note"}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 877)
+
+
+  
+ArgumentError ('0' is not a valid status):
+  
+app/controllers/notes_controller.rb:24:in `create'
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:07:53 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.9ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 5.2ms | Allocations: 888)
+  Rendered layout layouts/application.html.erb (Duration: 8.9ms | Allocations: 3026)
+Completed 200 OK in 11ms (Views: 9.1ms | ActiveRecord: 0.9ms | Allocations: 3337)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:07:53 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 1.1ms | Allocations: 823)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 2928)
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.1ms | Allocations: 3196)
+
+
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:16:25 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 0.9ms | Allocations: 1421)
+  Rendered notes/new.html.erb within layouts/application (Duration: 4.0ms | Allocations: 1690)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 1779)
+Completed 500 Internal Server Error in 8ms (Allocations: 2582)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <%= form_with(model: note) do |form| %>
+  <% if note.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+        <% note.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>1
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.select :status, options_for_select(Note.status.map({ |key, value| [key.titleize, Note.status.key(value)] })) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+):
+1:    <%= form_with(model: note) do |form| %>
+2:      <% if note.errors.any? %>
+3:        <div style="color: red">
+4:          <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+5:    
+6:          <ul>
+7:            <% note.errors.each do |error| %>
+8:              <li><%= error.full_message %></li>
+9:            <% end %>1
+10:          </ul>
+11:        </div>
+12:      <% end %>
+13:    
+14:      <div>
+15:        <%= form.label :title, style: "display: block" %>
+16:        <%= form.text_field :title %>
+17:      </div>
+18:    
+19:      <div>
+20:        <%= form.label :status, style: "display: block" %>
+21:        <%= form.select :status, options_for_select(Note.status.map({ |key, value| [key.titleize, Note.status.key(value)] })) %>
+22:      </div>
+23:    
+24:      <div>
+25:        <%= form.submit %>
+26:      </div>
+27:    <% end %>
+  
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/new.html.erb:3
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:18:19 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 1.9ms | Allocations: 1403)
+  Rendered notes/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1672)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | Allocations: 1761)
+Completed 500 Internal Server Error in 7ms (Allocations: 2561)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <%= form_with(model: note) do |form| %>
+  <% if note.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+        <% note.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>1
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.select :status, options_for_select(Note.status.map({ |key, value| [key.titleize, value]})) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+):
+1:    <%= form_with(model: note) do |form| %>
+2:      <% if note.errors.any? %>
+3:        <div style="color: red">
+4:          <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+5:    
+6:          <ul>
+7:            <% note.errors.each do |error| %>
+8:              <li><%= error.full_message %></li>
+9:            <% end %>1
+10:          </ul>
+11:        </div>
+12:      <% end %>
+13:    
+14:      <div>
+15:        <%= form.label :title, style: "display: block" %>
+16:        <%= form.text_field :title %>
+17:      </div>
+18:    
+19:      <div>
+20:        <%= form.label :status, style: "display: block" %>
+21:        <%= form.select :status, options_for_select(Note.status.map({ |key, value| [key.titleize, value]})) %>
+22:      </div>
+23:    
+24:      <div>
+25:        <%= form.submit %>
+26:      </div>
+27:    <% end %>
+  
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/_form.html.erb:21: syntax error, unexpected '|', expecting '}'
+app/views/notes/_form.html.erb:29: syntax error, unexpected `end'
+app/views/notes/new.html.erb:3
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:26:51 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 2.3ms | Allocations: 1922)
+  Rendered notes/new.html.erb within layouts/application (Duration: 5.9ms | Allocations: 2193)
+  Rendered layout layouts/application.html.erb (Duration: 6.1ms | Allocations: 2281)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.4ms | Allocations: 5417)
+
+
+  
+ActionView::Template::Error (undefined method `status' for Note:Class):
+    18: 
+    19:   <div>
+    20:     <%= form.label :status, style: "display: block" %>
+    21:     <%= form.select :status, options_for_select(Note.status.keys {|key| [key, key]}) %>
+    22:   </div>
+    23: 
+    24:   <div>
+  
+app/views/notes/_form.html.erb:21
+app/views/notes/_form.html.erb:1
+app/views/notes/new.html.erb:3
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:28:25 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 11.3ms | Allocations: 8434)
+  Rendered notes/new.html.erb within layouts/application (Duration: 12.0ms | Allocations: 8738)
+  Rendered layout layouts/application.html.erb (Duration: 20.1ms | Allocations: 21743)
+Completed 200 OK in 25ms (Views: 21.9ms | ActiveRecord: 0.0ms | Allocations: 22579)
+
+
+Started POST "/notes" for 127.0.0.1 at 2023-07-12 17:28:32 +0300
+Processing by NotesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"0"}, "commit"=>"Create Note"}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 870)
+
+
+  
+ArgumentError ('0' is not a valid status):
+  
+app/controllers/notes_controller.rb:24:in `create'
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:29:00 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 2.5ms | Allocations: 1504)
+  Rendered notes/new.html.erb within layouts/application (Duration: 3.6ms | Allocations: 1806)
+  Rendered layout layouts/application.html.erb (Duration: 8.7ms | Allocations: 4213)
+Completed 200 OK in 11ms (Views: 10.2ms | ActiveRecord: 0.0ms | Allocations: 5037)
+
+
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:29:09 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 3.5ms | Allocations: 1498)
+  Rendered notes/new.html.erb within layouts/application (Duration: 4.8ms | Allocations: 1803)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | Allocations: 4181)
+Completed 200 OK in 12ms (Views: 10.1ms | ActiveRecord: 0.0ms | Allocations: 5007)
+
+
+Started POST "/notes" for 127.0.0.1 at 2023-07-12 17:29:13 +0300
+Processing by NotesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"inprogress"}, "commit"=>"Create Note"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+  [1m[36mNote Create (0.2ms)[0m  [1m[32mINSERT INTO "notes" ("title", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Hello World"], ["status", 1], ["created_at", "2023-07-12 14:29:13.948540"], ["updated_at", "2023-07-12 14:29:13.948540"]]
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+Redirected to http://127.0.0.1:3000/notes/1
+Completed 302 Found in 7ms (ActiveRecord: 1.6ms | Allocations: 3647)
+
+
+Started GET "/notes/1" for 127.0.0.1 at 2023-07-12 17:29:13 +0300
+Processing by NotesController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mNote Load (0.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.5ms | Allocations: 192)
+  Rendered notes/show.html.erb within layouts/application (Duration: 5.6ms | Allocations: 1420)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 3517)
+Completed 200 OK in 14ms (Views: 9.0ms | ActiveRecord: 0.2ms | Allocations: 10692)
+
+
+Started DELETE "/notes/1" for 127.0.0.1 at 2023-07-12 17:30:56 +0300
+Processing by NotesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:52:in `destroy'
+  [1m[36mNote Destroy (0.2ms)[0m  [1m[31mDELETE FROM "notes" WHERE "notes"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/notes_controller.rb:52:in `destroy'
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:52:in `destroy'
+Redirected to http://127.0.0.1:3000/notes
+Completed 302 Found in 7ms (ActiveRecord: 3.4ms | Allocations: 2583)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:30:56 +0300
+Processing by NotesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/index.html.erb within layouts/application (Duration: 2.4ms | Allocations: 1104)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | Allocations: 3209)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.2ms | Allocations: 3565)
+
+
+Started GET "/notes/new" for 127.0.0.1 at 2023-07-12 17:31:00 +0300
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 1.5ms | Allocations: 1101)
+  Rendered notes/new.html.erb within layouts/application (Duration: 1.8ms | Allocations: 1190)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 3296)
+Completed 200 OK in 6ms (Views: 5.8ms | ActiveRecord: 0.0ms | Allocations: 3569)
+
+
+Started POST "/notes" for 127.0.0.1 at 2023-07-12 17:31:05 +0300
+Processing by NotesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"todo"}, "commit"=>"Create Note"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+  [1m[36mNote Create (0.2ms)[0m  [1m[32mINSERT INTO "notes" ("title", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Hello World"], ["status", 0], ["created_at", "2023-07-12 14:31:05.026080"], ["updated_at", "2023-07-12 14:31:05.026080"]]
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:27:in `block in create'
+Redirected to http://127.0.0.1:3000/notes/2
+Completed 302 Found in 5ms (ActiveRecord: 1.7ms | Allocations: 2376)
+
+
+Started GET "/notes/2" for 127.0.0.1 at 2023-07-12 17:31:05 +0300
+Processing by NotesController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered notes/show.html.erb within layouts/application (Duration: 0.9ms | Allocations: 623)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 2720)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.1ms | Allocations: 3470)
+
+
+Started GET "/notes/2/edit" for 127.0.0.1 at 2023-07-12 17:31:07 +0300
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 2.7ms | Allocations: 1214)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1501)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | Allocations: 3598)
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 0.1ms | Allocations: 4406)
+
+
+Started PATCH "/notes/2" for 127.0.0.1 at 2023-07-12 17:31:12 +0300
+Processing by NotesController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"inprogress"}, "commit"=>"Update Note", "id"=>"2"}
+  [1m[36mNote Load (0.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mNote Update (0.2ms)[0m  [1m[33mUPDATE "notes" SET "status" = ?, "updated_at" = ? WHERE "notes"."id" = ?[0m  [["status", 1], ["updated_at", "2023-07-12 14:31:12.079335"], ["id", 2]]
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+Redirected to http://127.0.0.1:3000/notes/2
+Completed 302 Found in 14ms (ActiveRecord: 3.7ms | Allocations: 3069)
+
+
+Started GET "/notes/2" for 127.0.0.1 at 2023-07-12 17:31:12 +0300
+Processing by NotesController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.1ms | Allocations: 18)
+  Rendered notes/show.html.erb within layouts/application (Duration: 0.9ms | Allocations: 641)
+  Rendered layout layouts/application.html.erb (Duration: 2.6ms | Allocations: 2738)
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.1ms | Allocations: 3488)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:31:31 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/_note.html.erb (Duration: 0.1ms | Allocations: 18)
+  Rendered notes/index.html.erb within layouts/application (Duration: 1.9ms | Allocations: 967)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 3072)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.1ms | Allocations: 3343)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:31:34 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/_note.html.erb (Duration: 0.2ms | Allocations: 18)
+  Rendered notes/index.html.erb within layouts/application (Duration: 4.8ms | Allocations: 957)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | Allocations: 3065)
+Completed 200 OK in 9ms (Views: 8.8ms | ActiveRecord: 0.1ms | Allocations: 3334)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:32:08 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/_note.html.erb (Duration: 0.5ms | Allocations: 198)
+  Rendered notes/index.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1476)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 3855)
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 0.1ms | Allocations: 4701)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 17:33:26 +0300
+Processing by NotesController#index as JSON
+  Rendering notes/index.json.jbuilder
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.json.jbuilder:1
+  Rendered collection of notes/_note.json.jbuilder [1 times] (Duration: 1.1ms | Allocations: 292)
+  Rendered notes/index.json.jbuilder (Duration: 6.7ms | Allocations: 1295)
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.1ms | Allocations: 1801)
+
+
+Started GET "/" for 127.0.0.1 at 2023-07-12 21:16:56 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/sondos/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/sondos/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.7ms | Allocations: 489)
+Completed 200 OK in 9ms (Views: 4.2ms | ActiveRecord: 0.0ms | Allocations: 4302)
+
+
+Started GET "/notes" for 127.0.0.1 at 2023-07-12 21:17:17 +0300
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Load (0.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+  ↳ app/views/notes/index.html.erb:6
+  Rendered notes/_note.html.erb (Duration: 0.4ms | Allocations: 234)
+  Rendered notes/index.html.erb within layouts/application (Duration: 12.6ms | Allocations: 5947)
+  Rendered layout layouts/application.html.erb (Duration: 77.3ms | Allocations: 39051)
+Completed 200 OK in 84ms (Views: 78.8ms | ActiveRecord: 0.5ms | Allocations: 41687)
+
+
+Started GET "/notes/2" for 127.0.0.1 at 2023-07-12 21:17:20 +0300
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.1ms | Allocations: 33)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1.2ms | Allocations: 866)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 2964)
+Completed 200 OK in 6ms (Views: 3.0ms | ActiveRecord: 0.1ms | Allocations: 5615)
+
+
+Started GET "/notes/2/edit" for 127.0.0.1 at 2023-07-12 21:17:21 +0300
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 5.9ms | Allocations: 2499)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 6.9ms | Allocations: 2852)
+  Rendered layout layouts/application.html.erb (Duration: 10.0ms | Allocations: 4950)
+Completed 200 OK in 12ms (Views: 10.5ms | ActiveRecord: 0.1ms | Allocations: 5765)
+
+
+Started PATCH "/notes/2" for 127.0.0.1 at 2023-07-12 21:17:24 +0300
+Processing by NotesController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello Worl", "status"=>"todo"}, "commit"=>"Update Note", "id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mNote Update (0.3ms)[0m  [1m[33mUPDATE "notes" SET "title" = ?, "status" = ?, "updated_at" = ? WHERE "notes"."id" = ?[0m  [["title", "Hello Worl"], ["status", 0], ["updated_at", "2023-07-12 18:17:24.740554"], ["id", 2]]
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+Redirected to http://127.0.0.1:3000/notes/2
+Completed 302 Found in 7ms (ActiveRecord: 1.8ms | Allocations: 4283)
+
+
+Started GET "/notes/2" for 127.0.0.1 at 2023-07-12 21:17:24 +0300
+Processing by NotesController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.1ms | Allocations: 33)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1.0ms | Allocations: 708)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | Allocations: 2805)
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 0.1ms | Allocations: 3601)
+
+
+Started GET "/notes/2/edit" for 127.0.0.1 at 2023-07-12 21:17:26 +0300
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  Rendered notes/_form.html.erb (Duration: 2.1ms | Allocations: 1188)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 2.2ms | Allocations: 1313)
+  Rendered layout layouts/application.html.erb (Duration: 3.7ms | Allocations: 3411)
+Completed 200 OK in 6ms (Views: 4.2ms | ActiveRecord: 0.1ms | Allocations: 4170)
+
+
+Started PATCH "/notes/2" for 127.0.0.1 at 2023-07-12 21:17:29 +0300
+Processing by NotesController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Hello World", "status"=>"todo"}, "commit"=>"Update Note", "id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mNote Update (0.3ms)[0m  [1m[33mUPDATE "notes" SET "title" = ?, "updated_at" = ? WHERE "notes"."id" = ?[0m  [["title", "Hello World"], ["updated_at", "2023-07-12 18:17:29.893126"], ["id", 2]]
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/notes_controller.rb:40:in `block in update'
+Redirected to http://127.0.0.1:3000/notes/2
+Completed 302 Found in 19ms (ActiveRecord: 2.5ms | Allocations: 2921)
+
+
+Started GET "/notes/2" for 127.0.0.1 at 2023-07-12 21:17:29 +0300
+Processing by NotesController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (0.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/notes_controller.rb:63:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  Rendered notes/_note.html.erb (Duration: 0.1ms | Allocations: 33)
+  Rendered notes/show.html.erb within layouts/application (Duration: 2.4ms | Allocations: 642)
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 2773)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.1ms | Allocations: 3524)
+
+
